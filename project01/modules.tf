@@ -1,4 +1,4 @@
 module "naming" {
-  source  = "Azure/naming/azurerm"
-  suffix = [ "test" ]
+  source = "Azure/naming/azurerm"
+  suffix = ["test"]
 }

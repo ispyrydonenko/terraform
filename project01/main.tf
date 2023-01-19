@@ -26,12 +26,14 @@ resource "random_password" "randpass" {
 }
 
 module "app_service" {
-  source = "../modules/app_service"
-  sql_server_name = local.sql_server_name
-  sql_db_name = local.sql_db_name
-  sql_login =local.sql_login
-  sql_password = local.sql_password
-  resource_group_name = azurerm_resource_group.rg.name
-  location = azurerm_resource_group.rg.location
-  webapp_count = 2
+  source               = "../modules/app_service"
+  sql_server_name      = local.sql_server_name
+  sql_db_name          = local.sql_db_name
+  sql_login            = local.sql_login
+  sql_password         = local.sql_password
+  resource_group_name  = azurerm_resource_group.rg.name
+  location             = azurerm_resource_group.rg.location
+  storage_account_name = local.storage_account_name
+  app_service_name     = local.app_service_name
+  webapp_count         = 2
 }

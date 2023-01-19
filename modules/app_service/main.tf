@@ -3,16 +3,16 @@ module "naming" {
   suffix = ["test"]
 }
 
-resource "random_integer" "randint" {
-  min = 10000
-  max = 99999
-}
+# resource "random_integer" "randint" {
+#   min = 10000
+#   max = 99999
+# }
 
-resource "random_password" "randpass" {
-  length           = 16
-  special          = true
-  override_special = "!#$%&*()-_=+[]{}<>:?"
-}
+# resource "random_password" "randpass" {
+#   length           = 16
+#   special          = true
+#   override_special = "!#$%&*()-_=+[]{}<>:?"
+# }
 
 # Create the Linux App Service Plan
 resource "azurerm_service_plan" "appserviceplan" {
@@ -26,7 +26,7 @@ resource "azurerm_service_plan" "appserviceplan" {
 # Create the web app, pass in the App Service Plan ID
 resource "azurerm_linux_web_app" "webapp" {
   count               = var.webapp_count
-  name                = "${local.app_service_name}-${count.index + 1}"
+  name                = "${var.app_service_name}-${count.index + 1}"
   location            = var.location
   resource_group_name = var.resource_group_name
   service_plan_id     = azurerm_service_plan.appserviceplan.id
