@@ -27,6 +27,7 @@ resource "random_password" "randpass" {
 
 module "app_service" {
   source               = "../modules/app_service"
+  webapps              = var.webapps
   sql_server_name      = local.sql_server_name
   sql_db_name          = local.sql_db_name
   sql_login            = local.sql_login
@@ -35,5 +36,4 @@ module "app_service" {
   location             = azurerm_resource_group.rg.location
   storage_account_name = local.storage_account_name
   app_service_name     = local.app_service_name
-  webapp_count         = 2
 }

@@ -25,15 +25,15 @@ resource "azurerm_service_plan" "appserviceplan" {
 
 # Create the web app, pass in the App Service Plan ID
 resource "azurerm_linux_web_app" "webapp" {
-  count               = var.webapp_count
-  name                = "${var.app_service_name}-${count.index + 1}"
+  for_each = toset(var.webapps)
+  name                = each.value
   location            = var.location
   resource_group_name = var.resource_group_name
   service_plan_id     = azurerm_service_plan.appserviceplan.id
   https_only          = true
 
   connection_string {
-    name  = "conn-string-acctest-db-d"
+    name  = "conn-string-${var.sql_db_name}"
     type  = "SQLAzure"
     value = local.connection_string
   }
@@ -42,10 +42,10 @@ resource "azurerm_linux_web_app" "webapp" {
   }
 }
 
-#  Deploy code from a public GitHub repo
+# #  Deploy code from a public GitHub repo
 resource "azurerm_app_service_source_control" "sourcecontrol" {
-  count                  = var.webapp_count
-  app_id                 = azurerm_linux_web_app.webapp[count.index].id
+  for_each = toset(var.webapps)
+  app_id                 = azurerm_linux_web_app.webapp[each.key].id
   repo_url               = "https://github.com/Azure-Samples/nodejs-docs-hello-world"
   branch                 = "master"
   use_manual_integration = true

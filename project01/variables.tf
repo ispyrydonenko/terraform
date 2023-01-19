@@ -1,5 +1,5 @@
 locals {
-  sql_server_name      = azurerm_mssql_server.sqlsrv.name
+  sql_server_name      = "${module.naming.mssql_server.name}-${random_integer.randint.result}"
   sql_db_name          = azurerm_mssql_database.db.name
   sql_login            = azurerm_mssql_server.sqlsrv.administrator_login
   sql_password         = azurerm_mssql_server.sqlsrv.administrator_login_password
@@ -66,15 +66,15 @@ variable "environment" {
   default = "test"
 }
 
-variable "storage_account_name_prefix" {
-  type    = string
-  default = "mystoragetest"
-}
+# variable "storage_account_name_prefix" {
+#   type    = string
+#   default = "mystoragetest"
+# }
 
-variable "sqlserver_name" {
-  type    = string
-  default = "sqlsrv"
-}
+# variable "sqlserver_name" {
+#   type    = string
+#   default = "sqlsrv"
+# }
 
 variable "sql_admin_login" {
   type    = string
@@ -90,3 +90,8 @@ variable "sql_admin_login" {
 # variable "db_connection_string" {
 #   type = string
 # }
+
+variable "webapps" {
+  type    = list(string)
+  default = ["app-test64029-1", "app-test64029-2"]
+}
