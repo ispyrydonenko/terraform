@@ -1,8 +1,3 @@
-module "naming" {
-  source = "Azure/naming/azurerm"
-  suffix = ["test"]
-}
-
 # Create the Linux App Service Plan
 resource "azurerm_service_plan" "appserviceplan" {
   name                = module.naming.app_service_plan.name
@@ -14,14 +9,11 @@ resource "azurerm_service_plan" "appserviceplan" {
 
 # Create the web app, pass in the App Service Plan ID
 resource "azurerm_linux_web_app" "webapp" {
-  for_each = var.webapps
-
-  name                = each.value.name
-  location            = each.value.location
-  resource_group_name = each.value.resource_group_name
-
+  name                = var.webapp_name
+  location            = var.location
+  resource_group_name = var.resource_group_name
   service_plan_id     = azurerm_service_plan.appserviceplan.id
-  https_only          = true
+  https_only          = var.https_only_flag
 
   connection_string {
     name  = "conn-string-${var.sql_db_name}"
@@ -35,8 +27,7 @@ resource "azurerm_linux_web_app" "webapp" {
 
 #  Deploy code from a public GitHub repo
 resource "azurerm_app_service_source_control" "sourcecontrol" {
-  for_each = var.webapps
-  app_id                 = azurerm_linux_web_app.webapp[each.key].id
+  app_id                 = azurerm_linux_web_app.webapp.id
   repo_url               = "https://github.com/Azure-Samples/nodejs-docs-hello-world"
   branch                 = "master"
   use_manual_integration = true

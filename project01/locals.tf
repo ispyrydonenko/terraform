@@ -10,26 +10,28 @@ locals {
   webapps = {
 
     app1 = {
-      name                 = "app-test64029-1",
-      resource_group_name  = azurerm_resource_group.rg.name
-      location             = azurerm_resource_group.rg.location
-      storage_account_name = azurerm_storage_account.storage.name
-      app_service_name     = local.app_service_name
-      sql_server_name      = azurerm_mssql_server.sqlsrv.name
-      sql_db_name          = azurerm_mssql_database.db.name
-      sql_login            = local.sql_login
-      sql_password         = local.sql_password
+      name            = "app-test64029-1",
+      https_only_flag = true
+      #   resource_group_name  = azurerm_resource_group.rg.name
+      #   location             = azurerm_resource_group.rg.location
+      #   storage_account_name = azurerm_storage_account.storage.name
+      #   app_service_name     = local.app_service_name
+      #   sql_server_name      = azurerm_mssql_server.sqlsrv.name
+      #   sql_db_name          = azurerm_mssql_database.db.name
+      #   sql_login            = local.sql_login
+      #   sql_password         = local.sql_password
     },
     app2 = {
-      name                 = "app-test64029-2"
-      resource_group_name  = azurerm_resource_group.rg.name
-      location             = azurerm_resource_group.rg.location
-      storage_account_name = azurerm_storage_account.storage.name
-      app_service_name     = local.app_service_name
-      sql_server_name      = azurerm_mssql_server.sqlsrv.name
-      sql_db_name          = azurerm_mssql_database.db.name
-      sql_login            = local.sql_login
-      sql_password         = local.sql_password
+      name            = "app-test64029-2"
+      https_only_flag = false
+      #   resource_group_name  = azurerm_resource_group.rg.name
+      #   location             = azurerm_resource_group.rg.location
+      #   storage_account_name = azurerm_storage_account.storage.name
+      #   app_service_name     = local.app_service_name
+      #   sql_server_name      = azurerm_mssql_server.sqlsrv.name
+      #   sql_db_name          = azurerm_mssql_database.db.name
+      #   sql_login            = local.sql_login
+      #   sql_password         = local.sql_password
     }
   }
 

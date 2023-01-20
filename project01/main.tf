@@ -26,14 +26,16 @@ resource "random_password" "randpass" {
 }
 
 module "app_service" {
+  for_each             = local.webapps
+  
   source               = "../modules/app_service"
-  webapps              = local.webapps
-  sql_server_name      = local.sql_server_name
-  sql_db_name          = local.sql_db_name
-  sql_login            = local.sql_login
-  sql_password         = local.sql_password
+  sql_server_name      = azurerm_mssql_server.sqlsrv.name
+  sql_db_name          = azurerm_mssql_database.db.name
+  sql_login            = azurerm_mssql_server.sqlsrv.administrator_login
+  sql_password         = azurerm_mssql_server.sqlsrv.administrator_login_password
   resource_group_name  = azurerm_resource_group.rg.name
   location             = azurerm_resource_group.rg.location
-  storage_account_name = local.storage_account_name
-  app_service_name     = local.app_service_name
+  storage_account_name = azurerm_storage_account.storage.name
+  webapp_name          = each.value.name
+  https_only_flag      = each.value.https_only_flag
 }

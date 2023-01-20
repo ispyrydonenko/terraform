@@ -25,10 +25,10 @@ variable "storage_account_name" {
   type = string
 }
 
-variable "app_service_name" {
+variable "webapp_name" {
   type = string
 }
 
-variable "webapps" {
-  type = any
+variable "https_only_flag" {
+  type = bool
 }
