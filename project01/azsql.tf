@@ -13,8 +13,6 @@ resource "azurerm_mssql_server" "sqlsrv" {
   version                      = "12.0"
   administrator_login          = var.sql_admin_login
   administrator_login_password = random_password.randpass.result
-  # administrator_login_password = var.sql_admin_password
-  # administrator_login          = "4dm1n157r470r"
 }
 
 resource "azurerm_mssql_database" "db" {
