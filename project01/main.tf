@@ -27,7 +27,7 @@ resource "random_password" "randpass" {
 
 module "app_service" {
   source               = "../modules/app_service"
-  webapps              = var.webapps
+  webapps              = local.webapps
   sql_server_name      = local.sql_server_name
   sql_db_name          = local.sql_db_name
   sql_login            = local.sql_login

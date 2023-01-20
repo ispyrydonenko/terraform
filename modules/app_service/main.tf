@@ -25,10 +25,23 @@ resource "azurerm_service_plan" "appserviceplan" {
 
 # Create the web app, pass in the App Service Plan ID
 resource "azurerm_linux_web_app" "webapp" {
-  for_each = toset(var.webapps)
-  name                = each.value
-  location            = var.location
-  resource_group_name = var.resource_group_name
+  for_each = var.webapps
+
+  name                = each.value.name
+  location            = each.value.location
+  resource_group_name = each.value.resource_group_name
+
+  # name                = var.webapps[*][name]
+  # location            = var.webapps[*][location]
+  # resource_group_name = var.webapps[*][resource_group_name]
+
+  # name                = lookup(each.value, name)
+  # location            = lookup(each.value, location)
+  # resource_group_name = lookup(each.value, resource_group_name)
+
+  # name                = each.value[name]
+  # location            = each.value[location]
+  # resource_group_name = each.value[resource_group_name]
   service_plan_id     = azurerm_service_plan.appserviceplan.id
   https_only          = true
 
@@ -42,9 +55,9 @@ resource "azurerm_linux_web_app" "webapp" {
   }
 }
 
-# #  Deploy code from a public GitHub repo
+#  Deploy code from a public GitHub repo
 resource "azurerm_app_service_source_control" "sourcecontrol" {
-  for_each = toset(var.webapps)
+  for_each = var.webapps
   app_id                 = azurerm_linux_web_app.webapp[each.key].id
   repo_url               = "https://github.com/Azure-Samples/nodejs-docs-hello-world"
   branch                 = "master"

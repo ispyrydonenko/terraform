@@ -34,5 +34,5 @@ variable "app_service_name" {
 }
 
 variable "webapps" {
-  type = list
+  type = any
 }
