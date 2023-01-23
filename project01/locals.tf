@@ -7,7 +7,7 @@ locals {
   storage_account_name = "${module.naming.storage_account.name}${random_integer.randint.result}"
   app_service_name     = "${module.naming.app_service.name}${random_integer.randint.result}"
 
-#-------------------------------------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------------------------------------
   webapps = {
 
     app1 = {
@@ -20,16 +20,16 @@ locals {
     }
   }
 
-#-------------------------------------------------------------------------------------------------------------
+  #-------------------------------------------------------------------------------------------------------------
 
-sql_servers = {
+  sql_servers = {
     primary = {
-        name = "${local.sql_server_name}-primary"
+      name = "${local.sql_server_name}-primary"
     },
     secondary = {
-        name = "${local.sql_server_name}-secondary"
+      name = "${local.sql_server_name}-secondary"
 
     }
-}
+  }
 
 }

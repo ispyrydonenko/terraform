@@ -1,6 +1,11 @@
-variable "location" {
+variable "location_primary" {
   type    = string
   default = "West Europe"
+}
+variable "location_secondary" {
+  description = "Used for Geo-redundant replication"
+  type    = string
+  default = "North Europe"
 }
 
 variable "resource_group_name" {
@@ -43,4 +48,11 @@ variable "environment" {
 variable "sql_admin_login" {
   type    = string
   default = "sqladm"
+}
+
+variable "isGRS" {
+  type = bool
+  default = true
+  # default = false
+  description = "Flag to enable Geo-redundancy"
 }

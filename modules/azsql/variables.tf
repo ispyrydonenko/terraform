@@ -18,9 +18,19 @@ variable "resource_group_name" {
   type = string
 }
 
-variable "location" {
+variable "location_primary" {
+  type = string
+}
+
+variable "location_secondary" {
   type = string
 }
 variable "storage_account_name" {
   type = string
+}
+
+variable "isGRS" {
+  type = bool
+  default = false
+  description = "Flag to enable Geo-redundancy"
 }
