@@ -15,6 +15,9 @@ resource "azurerm_linux_web_app" "webapp" {
   service_plan_id     = azurerm_service_plan.appserviceplan.id
   https_only          = var.https_only_flag
 
+  identity {
+    type = "SystemAssigned"
+  }
   connection_string {
     name  = "conn-string-${var.sql_db_name}"
     type  = "SQLAzure"
@@ -32,4 +35,8 @@ resource "azurerm_app_service_source_control" "sourcecontrol" {
   branch                 = "master"
   use_manual_integration = true
   use_mercurial          = false
+}
+
+output "identity_id" {
+  value = azurerm_linux_web_app.webapp.identity[0].principal_id
 }
