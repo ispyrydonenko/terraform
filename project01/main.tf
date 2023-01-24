@@ -61,9 +61,7 @@ module "keyvault" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   key_vault_name      = local.key_vault_name
-  # identity_id         = "2af3478a-27da-4837-a387-b22b3fb236a8"
-  # identity_id         = module.app_service["app1"].identity_id
-  # identity_id         = module.app_service[each.key].identity_id
-  identity_id         = local.identities
-
+  webapp_identity_id  = local.webapp_identity_id
+  secret_name         = "DB-connection-string"
+  secret_value        = local.connection_string
 }

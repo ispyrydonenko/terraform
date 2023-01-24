@@ -1,7 +1,6 @@
 locals {
   key_vault_name = "${module.naming.key_vault.name}-${random_integer.randint.result}"
-  # identities = [module.app_service[*].identity_id]
-  identities = [for k in module.app_service : "${k.identity_id}"]
+  webapp_identity_id = [for k in module.app_service : "${k.identity_id}"]
   #-------------------------------------------------------------------------------------------------------------
 
   sql_server_name   = "${module.naming.mssql_server.name}-${random_integer.randint.result}"
