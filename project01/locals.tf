@@ -1,6 +1,29 @@
 locals {
-  key_vault_name = "${module.naming.key_vault.name}-${random_integer.randint.result}"
-  webapp_identity_id = [for k in module.app_service : "${k.identity_id}"]
+
+  access_policy = {
+    "terraform" = {
+      "entity_id"           = "${data.azurerm_client_config.current.object_id}"
+      "key_permissions"     = []
+      "secret_permissions"  = ["Get", "List", "Purge", "Recover", "Restore", "Set"]
+      "storage_permissions" = []
+    },
+    "webapp1" = {
+      "entity_id"           = "${local.webapp_identity_id["app1"].identity_id}"
+      "key_permissions"     = []
+      "secret_permissions"  = ["Get"]
+      "storage_permissions" = []
+    },
+    "webapp2" = {
+      "entity_id"           = "${local.webapp_identity_id["app2"].identity_id}"
+      "key_permissions"     = []
+      "secret_permissions"  = ["Get"]
+      "storage_permissions" = []
+    }
+  }
+
+  key_vault_name     = "${module.naming.key_vault.name}-${random_integer.randint.result}"
+  webapp_identity_id = module.app_service
+  # webapp_identity_id = [for k in module.app_service : "${k.identity_id}"]
   #-------------------------------------------------------------------------------------------------------------
 
   sql_server_name   = "${module.naming.mssql_server.name}-${random_integer.randint.result}"

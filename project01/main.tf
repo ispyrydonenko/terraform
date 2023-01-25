@@ -10,16 +10,13 @@ resource "random_password" "randpass" {
   override_special = "!#$%&*()-_=+[]{}<>:?"
 }
 
-# data "azurerm_linux_web_app" "existing" {
-#   for_each            = local.webapps
-#   resource_group_name = azurerm_resource_group.rg.name
-#   name                = each.value.name
+data "azurerm_client_config" "current" {}
 
-# }
+
 module "app_service" {
   for_each = local.webapps
 
-  source     = "../modules/app_service"
+  source = "../modules/app_service"
   # depends_on = [module.azsql, module.keyvault]
 
   sql_server_name      = local.sql_server_name
@@ -31,7 +28,9 @@ module "app_service" {
   storage_account_name = local.storage_account_name
   webapp_name          = each.value.name
   https_only_flag      = each.value.https_only_flag
-  kv_secret_id         = module.keyvault.secret_id
+  kv_secret_id         = azurerm_key_vault_secret.secret.id
+  # kv_secret_id         = "TEST!"
+  # kv_secret_id         = module.keyvault.secret_id
 }
 
 module "azsql" {
@@ -62,7 +61,7 @@ module "keyvault" {
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   key_vault_name      = local.key_vault_name
-  webapp_identity_id  = local.webapp_identity_id
-  secret_name         = "DB-connection-string"
-  secret_value        = local.connection_string
+  # webapp_identity_id  = local.webapp_identity_id
+  # secret_name         = "DB-connection-string"
+  # secret_value        = local.connection_string
 }

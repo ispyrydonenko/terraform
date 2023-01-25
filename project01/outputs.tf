@@ -6,6 +6,6 @@ output "web_app_identity_id" {
   # sensitive = true
 }
 
-output "connection_string_secret_id" {
-  value = module.keyvault.secret_id
-}
+# output "connection_string_secret_id" {
+#   value = module.keyvault.secret_id
+# }
