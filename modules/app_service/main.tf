@@ -36,7 +36,3 @@ resource "azurerm_app_service_source_control" "sourcecontrol" {
   use_manual_integration = true
   use_mercurial          = false
 }
-
-output "identity_id" {
-  value = azurerm_linux_web_app.webapp.identity[0].principal_id
-}

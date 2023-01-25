@@ -32,3 +32,7 @@ variable "webapp_name" {
 variable "https_only_flag" {
   type = bool
 }
+
+variable "kv_secret_id" {
+  type = string
+}
