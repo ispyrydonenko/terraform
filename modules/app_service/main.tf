@@ -19,7 +19,7 @@ resource "azurerm_linux_web_app" "webapp" {
     type = "SystemAssigned"
   }
   connection_string {
-    name  = "conn_string_${var.sql_db_name}"
+    name  = "db_conn_string"
     type  = "SQLAzure"
     # value = local.connection_string
     value = var.connection_string_kv
