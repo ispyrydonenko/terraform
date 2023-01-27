@@ -1,12 +1,12 @@
 locals {
 
   access_policy = {
-    "terraform" = {
-      "entity_id"           = "${data.azurerm_client_config.current.object_id}"
-      "key_permissions"     = []
-      "secret_permissions"  = ["Get", "List", "Purge", "Recover", "Restore", "Set"]
-      "storage_permissions" = []
-    },
+    # "terraform" = {
+    #   "entity_id"           = "${data.azurerm_client_config.current.object_id}"
+    #   "key_permissions"     = []
+    #   "secret_permissions"  = ["Get", "List", "Purge", "Recover", "Restore", "Set"]
+    #   "storage_permissions" = []
+    # },
     "webapp1" = {
       "entity_id"           = "${local.webapp_identity_id["app1"].identity_id}"
       "key_permissions"     = []
@@ -23,6 +23,8 @@ locals {
 
   key_vault_name     = "${module.naming.key_vault.name}-${random_integer.randint.result}"
   webapp_identity_id = module.app_service
+  connection_string_kv_pattern = "@Microsoft.KeyVault(SecretUri=[link])"
+  connection_string_kv = replace(local.connection_string_kv_pattern, "[link]", "${azurerm_key_vault_secret.secret.id}")
   # webapp_identity_id = [for k in module.app_service : "${k.identity_id}"]
   #-------------------------------------------------------------------------------------------------------------
 

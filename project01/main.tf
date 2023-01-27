@@ -17,7 +17,7 @@ module "app_service" {
   for_each = local.webapps
 
   source = "../modules/app_service"
-  # depends_on = [module.azsql, module.keyvault]
+  # depends_on = [azurerm_key_vault_secret.secret.id]
 
   sql_server_name      = local.sql_server_name
   sql_db_name          = local.sql_db_name
@@ -28,7 +28,8 @@ module "app_service" {
   storage_account_name = local.storage_account_name
   webapp_name          = each.value.name
   https_only_flag      = each.value.https_only_flag
-  kv_secret_id         = azurerm_key_vault_secret.secret.id
+  connection_string_kv = local.connection_string_kv
+  # kv_secret_id         = azurerm_key_vault_secret.secret.id
   # kv_secret_id         = "TEST!"
   # kv_secret_id         = module.keyvault.secret_id
 }

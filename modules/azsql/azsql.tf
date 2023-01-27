@@ -50,5 +50,5 @@ resource "azurerm_mssql_failover_group" "sql-database-failover" {
     mode          = "Automatic"
     grace_minutes = 60
   }
-  depends_on = [azurerm_mssql_database.db]
+  # depends_on = [azurerm_mssql_database.db]
 }

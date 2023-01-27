@@ -19,9 +19,10 @@ resource "azurerm_linux_web_app" "webapp" {
     type = "SystemAssigned"
   }
   connection_string {
-    name  = "conn-string-${var.sql_db_name}"
+    name  = "conn_string_${var.sql_db_name}"
     type  = "SQLAzure"
-    value = local.connection_string
+    # value = local.connection_string
+    value = var.connection_string_kv
   }
   site_config {
     minimum_tls_version = "1.2"

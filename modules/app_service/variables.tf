@@ -33,6 +33,10 @@ variable "https_only_flag" {
   type = bool
 }
 
-variable "kv_secret_id" {
+variable "connection_string_kv" {
   type = string
 }
+
+# variable "kv_secret_id" {
+#   type = string
+# }
