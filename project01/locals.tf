@@ -52,7 +52,8 @@ locals {
     }
   }
 
-  subnet_id_appsvc = [for s in azurerm_virtual_network.vnet.subnet : s.id if s.name == "subnetappsvc"][0]
+  subnet_id_appsvc = [for s in azurerm_subnet.subnets : s.id if s.name == "subnetappsvc"][0]
+  # subnet_id_appsvc = [for s in azurerm_virtual_network.vnet.subnet : s.id if s.name == "subnetappsvc"][0]
   #-------------------------------------------------------------------------------------------------------------
 
   sql_servers = {
