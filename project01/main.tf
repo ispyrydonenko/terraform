@@ -16,9 +16,7 @@ data "azurerm_client_config" "current" {}
 module "app_service" {
   for_each = local.webapps
 
-  source = "../modules/app_service"
-  # depends_on = [azurerm_key_vault_secret.secret.id]
-
+  source               = "../modules/app_service"
   sql_server_name      = local.sql_server_name
   sql_db_name          = local.sql_db_name
   sql_login            = local.sql_login
@@ -29,6 +27,7 @@ module "app_service" {
   webapp_name          = each.value.name
   https_only_flag      = each.value.https_only_flag
   connection_string_kv = local.connection_string_kv
+  subnet_id            = local.subnet_id_appsvc
   # kv_secret_id         = azurerm_key_vault_secret.secret.id
   # kv_secret_id         = "TEST!"
   # kv_secret_id         = module.keyvault.secret_id

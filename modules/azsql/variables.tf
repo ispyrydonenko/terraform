@@ -30,7 +30,7 @@ variable "storage_account_name" {
 }
 
 variable "isGRS" {
-  type = bool
-  default = false
+  type        = bool
+  default     = false
   description = "Flag to enable Geo-redundancy"
 }

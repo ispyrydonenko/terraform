@@ -21,10 +21,10 @@ locals {
     }
   }
 
-  key_vault_name     = "${module.naming.key_vault.name}-${random_integer.randint.result}"
-  webapp_identity_id = module.app_service
+  key_vault_name               = "${module.naming.key_vault.name}-${random_integer.randint.result}"
+  webapp_identity_id           = module.app_service
   connection_string_kv_pattern = "@Microsoft.KeyVault(SecretUri=[link])"
-  connection_string_kv = replace(local.connection_string_kv_pattern, "[link]", "${azurerm_key_vault_secret.secret.id}")
+  connection_string_kv         = replace(local.connection_string_kv_pattern, "[link]", "${azurerm_key_vault_secret.secret.id}")
   # webapp_identity_id = [for k in module.app_service : "${k.identity_id}"]
   #-------------------------------------------------------------------------------------------------------------
 
@@ -52,6 +52,7 @@ locals {
     }
   }
 
+  subnet_id_appsvc = [for s in azurerm_virtual_network.vnet.subnet : s.id if s.name == "subnetappsvc"][0]
   #-------------------------------------------------------------------------------------------------------------
 
   sql_servers = {

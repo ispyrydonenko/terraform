@@ -9,23 +9,25 @@ resource "azurerm_service_plan" "appserviceplan" {
 
 # Create the web app, pass in the App Service Plan ID
 resource "azurerm_linux_web_app" "webapp" {
-  name                = var.webapp_name
-  location            = var.location
-  resource_group_name = var.resource_group_name
-  service_plan_id     = azurerm_service_plan.appserviceplan.id
-  https_only          = var.https_only_flag
+  name                      = var.webapp_name
+  location                  = var.location
+  resource_group_name       = var.resource_group_name
+  service_plan_id           = azurerm_service_plan.appserviceplan.id
+  https_only                = var.https_only_flag
+  virtual_network_subnet_id = var.subnet_id
 
   identity {
     type = "SystemAssigned"
   }
   connection_string {
-    name  = "db_conn_string"
-    type  = "SQLAzure"
+    name = "db_conn_string"
+    type = "SQLAzure"
     # value = local.connection_string
     value = var.connection_string_kv
   }
   site_config {
-    minimum_tls_version = "1.2"
+    vnet_route_all_enabled = true
+    minimum_tls_version    = "1.2"
   }
 }
 

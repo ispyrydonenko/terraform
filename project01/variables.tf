@@ -4,8 +4,8 @@ variable "location_primary" {
 }
 variable "location_secondary" {
   description = "Used for Geo-redundant replication"
-  type    = string
-  default = "North Europe"
+  type        = string
+  default     = "North Europe"
 }
 
 variable "resource_group_name" {
@@ -33,10 +33,22 @@ variable "subnets" {
   type = list(object({
     name           = string
     address_prefix = string
+    delegation_name = string
+    delegation_actions = list(string)
   }))
   default = [
-    { name = "subnetappsvc", address_prefix = "10.0.1.0/24" },
-    { name = "subnetdb", address_prefix = "10.0.2.0/24" },
+    {
+      name               = "subnetappsvc"
+      address_prefix     = "10.0.1.0/24"
+      delegation_name    = "Microsoft.Web/serverFarms"
+      delegation_actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+    },
+    {
+      name               = "subnetdb"
+      address_prefix     = "10.0.2.0/24"
+      delegation_name    = null
+      delegation_actions = null
+    },
   ]
 }
 
@@ -51,7 +63,7 @@ variable "sql_admin_login" {
 }
 
 variable "isGRS" {
-  type = bool
+  type    = bool
   default = true
   # default = false
   description = "Flag to enable Geo-redundancy"

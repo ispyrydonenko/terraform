@@ -40,3 +40,7 @@ variable "connection_string_kv" {
 # variable "kv_secret_id" {
 #   type = string
 # }
+
+variable "subnet_id" {
+  type = string
+}
