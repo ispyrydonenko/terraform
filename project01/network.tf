@@ -30,20 +30,20 @@ resource "azurerm_virtual_network" "vnet" {
 }
 
 resource "azurerm_subnet" "subnets" {
-  count = length(var.subnets)
+  count                = length(var.subnets)
   name                 = var.subnets[count.index].name
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
   address_prefixes     = [var.subnets[count.index].address_prefix]
-  
+
   dynamic "delegation" {
     for_each = var.subnets[count.index].delegation_name == null ? [] : [1]
     content {
       name = "delegation"
       service_delegation {
-      name    = var.subnets[count.index].delegation_name
-      actions = var.subnets[count.index].delegation_actions
-    }
+        name    = var.subnets[count.index].delegation_name
+        actions = var.subnets[count.index].delegation_actions
+      }
     }
   }
 

@@ -31,9 +31,9 @@ variable "dns_servers" {
 variable "subnets" {
   description = "list of values to assign to subnets"
   type = list(object({
-    name           = string
-    address_prefix = string
-    delegation_name = string
+    name               = string
+    address_prefix     = string
+    delegation_name    = string
     delegation_actions = list(string)
   }))
   default = [
