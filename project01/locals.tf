@@ -32,7 +32,7 @@ locals {
   sql_db_name       = module.naming.mssql_database.name
   sql_login         = var.sql_admin_login
   sql_password      = random_password.randpass.result
-  connection_string = "Server=tcp:${local.sql_server_name}.database.windows.net,1433;Initial Catalog=${local.sql_db_name};Persist Security Info=False;User ID=${local.sql_login};Password=${local.sql_password};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
+  connection_string = "Server=tcp:${module.azsql.sqlsrv_primary_name}.database.windows.net,1433;Initial Catalog=${local.sql_db_name};Persist Security Info=False;User ID=${local.sql_login};Password=${local.sql_password};MultipleActiveResultSets=True;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
 
   #-------------------------------------------------------------------------------------------------------------
 

@@ -3,7 +3,7 @@ resource "azurerm_virtual_network" "vnet" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   address_space       = var.vnet_addr_space
-  dns_servers         = var.dns_servers
+  # dns_servers         = var.dns_servers
 
   # subnet {
   #   name           = var.app_svc_subnet.name

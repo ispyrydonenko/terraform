@@ -42,10 +42,17 @@ variable "subnets" {
       address_prefix     = "10.0.1.0/24"
       delegation_name    = "Microsoft.Web/serverFarms"
       delegation_actions = ["Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
+      # delegation_actions = ["Microsoft.Network/virtualNetworks/subnets/action", "Microsoft.Network/virtualNetworks/subnets/join/action", "Microsoft.Network/virtualNetworks/subnets/prepareNetworkPolicies/action"]
     },
     {
       name               = "subnetdb"
       address_prefix     = "10.0.2.0/24"
+      delegation_name    = null
+      delegation_actions = null
+    },
+    {
+      name               = "subnetprivateendpoint"
+      address_prefix     = "10.0.3.0/24"
       delegation_name    = null
       delegation_actions = null
     },
@@ -63,8 +70,15 @@ variable "sql_admin_login" {
 }
 
 variable "isGRS" {
-  type    = bool
-  default = true
-  # default = false
+  type = bool
+  # default = true
+  default     = false
   description = "Flag to enable Geo-redundancy"
 }
+
+# variable "DOCKER_REGISTRY_SERVER_USERNAME" {
+#   type = string
+# }
+# variable "DOCKER_REGISTRY_SERVER_PASSWORD" {
+#   type = string
+# }
