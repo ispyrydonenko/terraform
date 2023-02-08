@@ -16,20 +16,20 @@ data "azurerm_client_config" "current" {}
 module "app_service" {
   for_each = local.webapps
 
-  source                      = "../modules/app_service"
-  sql_server_name             = local.sql_server_name
-  sql_db_name                 = local.sql_db_name
-  sql_login                   = local.sql_login
-  sql_password                = local.sql_password
-  resource_group_name         = azurerm_resource_group.rg.name
-  location                    = azurerm_resource_group.rg.location
-  storage_account_name        = local.storage_account_name
-  webapp_name                 = each.value.name
-  https_only_flag             = each.value.https_only_flag
-  connection_string_kv        = local.connection_string_kv
-  subnet_id                   = local.subnet_id_appsvc
-  docker_image                = "acc4myjob/dotnet_webapp"
-  DOCKER_ENABLE_CI            = true
+  source               = "../modules/app_service"
+  sql_server_name      = local.sql_server_name
+  sql_db_name          = local.sql_db_name
+  sql_login            = local.sql_login
+  sql_password         = local.sql_password
+  resource_group_name  = azurerm_resource_group.rg.name
+  location             = azurerm_resource_group.rg.location
+  storage_account_name = local.storage_account_name
+  webapp_name          = each.value.name
+  https_only_flag      = each.value.https_only_flag
+  connection_string_kv = local.connection_string_kv
+  subnet_id            = local.subnet_id_appsvc
+  docker_image         = "acc4myjob/dotnet_webapp"
+  DOCKER_ENABLE_CI     = true
   # WEBSITE_HTTPLOGGING_ENABLED = true
   # DOCKER_REGISTRY_SERVER_USERNAME = var.DOCKER_REGISTRY_SERVER_USERNAME
   # DOCKER_REGISTRY_SERVER_PASSWORD = var.DOCKER_REGISTRY_SERVER_PASSWORD
@@ -69,4 +69,14 @@ module "keyvault" {
   # webapp_identity_id  = local.webapp_identity_id
   # secret_name         = "DB-connection-string"
   # secret_value        = local.connection_string
+}
+
+module "network" {
+  # for_each = local.webapps
+  source              = "../modules/network"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  subnets             = var.subnets
+  vnet_addr_space     = var.vnet_addr_space
+  environment         = var.environment
 }

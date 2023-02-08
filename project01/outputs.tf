@@ -13,7 +13,7 @@ output "web_app_identity_id" {
 output "subnets" {
   # value = azurerm_virtual_network.vnet.subnet[*].id
   # value = [for s in azurerm_virtual_network.vnet.subnet : s.id if s.name == "subnetappsvc"]
-  value = [for s in azurerm_subnet.subnets : s.id if s.name == "subnetappsvc"]
+  value = [for s in module.network.subnets : s.id if s.name == "subnetappsvc"]
 }
 
 output "sqlsrv_primary_name" {
