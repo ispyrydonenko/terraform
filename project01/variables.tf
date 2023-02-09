@@ -71,8 +71,8 @@ variable "sql_admin_login" {
 
 variable "isGRS" {
   type = bool
-  # default = true
-  default     = false
+  default = true
+  # default     = false
   description = "Flag to enable Geo-redundancy"
 }
 

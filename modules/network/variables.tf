@@ -22,3 +22,11 @@ variable "subnets" {
     delegation_actions = list(string)
   }))
 }
+
+variable "sql_server_instance_id" {
+  type = string
+}
+
+variable "sql_server_instance_name" {
+  type = string
+}

@@ -73,10 +73,12 @@ module "keyvault" {
 
 module "network" {
   # for_each = local.webapps
-  source              = "../modules/network"
-  resource_group_name = azurerm_resource_group.rg.name
-  location            = azurerm_resource_group.rg.location
-  subnets             = var.subnets
-  vnet_addr_space     = var.vnet_addr_space
-  environment         = var.environment
+  source                   = "../modules/network"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+  subnets                  = var.subnets
+  vnet_addr_space          = var.vnet_addr_space
+  environment              = var.environment
+  sql_server_instance_id   = local.sql_server_instance_id
+  sql_server_instance_name = local.sql_server_instance_name
 }

@@ -53,6 +53,10 @@ resource "azurerm_mssql_failover_group" "sql-database-failover" {
   # depends_on = [azurerm_mssql_database.db]
 }
 
+output "sqlsrv_primary_id" {
+  value = azurerm_mssql_server.sqlsrv_primary.id
+}
+
 output "sqlsrv_primary_name" {
   value = azurerm_mssql_server.sqlsrv_primary.name
 }

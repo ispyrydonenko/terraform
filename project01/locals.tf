@@ -66,4 +66,6 @@ locals {
     }
   }
 
+  sql_server_instance_id = module.azsql.sqlsrv_primary_id
+  sql_server_instance_name = module.azsql.sqlsrv_primary_name
 }
