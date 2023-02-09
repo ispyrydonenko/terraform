@@ -5,6 +5,13 @@ terraform {
       source  = "hashicorp/azurerm"
       version = ">=3.40.0"
     }
+    template = {
+      version = "~> 2.0"
+    }
+    random = {
+      version = "~> 3.4.3"
+    }
+
   }
 
   required_version = "~> 1.3.7"

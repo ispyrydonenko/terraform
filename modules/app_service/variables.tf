@@ -50,11 +50,11 @@ variable "docker_image" {
 }
 
 variable "docker_image_tag" {
-  type = string
+  type    = string
   default = "latest"
 }
 variable "dotnet_version" {
-  type = string
+  type    = string
   default = "6.0"
 }
 # variable "DOCKER_REGISTRY_SERVER_USERNAME" {
