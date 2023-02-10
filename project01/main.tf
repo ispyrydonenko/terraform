@@ -48,7 +48,7 @@ module "azsql" {
   resource_group_name  = azurerm_resource_group.rg.name
   location_primary     = azurerm_resource_group.rg.location
   location_secondary   = var.location_secondary
-  isGRS                = var.isGRS
+  is_grs                = var.is_grs
 }
 
 module "storage" {
@@ -56,7 +56,7 @@ module "storage" {
   storage_account_name = local.storage_account_name
   resource_group_name  = azurerm_resource_group.rg.name
   location             = azurerm_resource_group.rg.location
-  isGRS                = var.isGRS
+  is_grs                = var.is_grs
 
 }
 

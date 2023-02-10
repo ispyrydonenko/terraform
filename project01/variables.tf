@@ -69,7 +69,7 @@ variable "sql_admin_login" {
   default = "sqladm"
 }
 
-variable "isGRS" {
+variable "is_grs" {
   type    = bool
   default = true
   # default     = false

@@ -11,7 +11,7 @@ resource "azurerm_mssql_server" "sqlsrv_primary" {
 }
 
 resource "azurerm_mssql_server" "sqlsrv_secondary" {
-  count                        = var.isGRS == true ? 1 : 0
+  count                        = var.is_grs ? 1 : 0
   name                         = local.sql_server_name_secondary
   resource_group_name          = var.resource_group_name
   location                     = var.location_secondary
@@ -38,8 +38,8 @@ resource "azurerm_mssql_database" "db" {
   }
 }
 
-resource "azurerm_mssql_failover_group" "sql-database-failover" {
-  count     = var.isGRS == true ? 1 : 0
+resource "azurerm_mssql_failover_group" "sql_database_failover" {
+  count     = var.is_grs ? 1 : 0
   name      = "sql-database-failover"
   server_id = azurerm_mssql_server.sqlsrv_primary.id
   databases = [azurerm_mssql_database.db.id]
