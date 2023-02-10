@@ -20,19 +20,14 @@ resource "azurerm_linux_web_app" "webapp" {
     type = "SystemAssigned"
   }
   connection_string {
-    name = "SalesDb"
-    # name = "ConnectionStrings__SalesDb"
-    type = "SQLAzure"
-    # value = local.connection_string
+    name  = "SalesDb"
+    type  = "SQLAzure"
     value = var.connection_string_kv
   }
 
   app_settings = {
     DOCKER_ENABLE_CI           = var.DOCKER_ENABLE_CI
     DOCKER_REGISTRY_SERVER_URL = "https://registry.hub.docker.com"
-    # ASPNETCORE_ENVIRONMENT     = "Development"
-    # DOCKER_REGISTRY_SERVER_USERNAME = var.DOCKER_REGISTRY_SERVER_USERNAME
-    # DOCKER_REGISTRY_SERVER_PASSWORD = var.DOCKER_REGISTRY_SERVER_PASSWORD
   }
   site_config {
     vnet_route_all_enabled = true
@@ -58,12 +53,3 @@ resource "azurerm_linux_web_app" "webapp" {
   }
 
 }
-
-# #  Deploy code from a public GitHub repo
-# resource "azurerm_app_service_source_control" "sourcecontrol" {
-#   app_id                 = azurerm_linux_web_app.webapp.id
-#   repo_url               = "https://github.com/Azure-Samples/nodejs-docs-hello-world"
-#   branch                 = "master"
-#   use_manual_integration = true
-#   use_mercurial          = false
-# }

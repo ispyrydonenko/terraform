@@ -24,12 +24,10 @@ resource "azurerm_mssql_server" "sqlsrv_secondary" {
 }
 
 resource "azurerm_mssql_database" "db" {
-  name      = var.sql_db_name
-  server_id = azurerm_mssql_server.sqlsrv_primary.id
-  collation = "SQL_Latin1_General_CP1_CI_AS"
-  # license_type   = "LicenseIncluded"
-  max_size_gb = 1
-  # read_scale     = false
+  name           = var.sql_db_name
+  server_id      = azurerm_mssql_server.sqlsrv_primary.id
+  collation      = "SQL_Latin1_General_CP1_CI_AS"
+  max_size_gb    = 1
   sku_name       = "S0"
   zone_redundant = false
 
@@ -50,7 +48,6 @@ resource "azurerm_mssql_failover_group" "sql_database_failover" {
     mode          = "Automatic"
     grace_minutes = 60
   }
-  # depends_on = [azurerm_mssql_database.db]
 }
 
 output "sqlsrv_primary_id" {

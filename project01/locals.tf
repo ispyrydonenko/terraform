@@ -1,12 +1,6 @@
 locals {
 
   access_policy = {
-    # "terraform" = {
-    #   "entity_id"           = "${data.azurerm_client_config.current.object_id}"
-    #   "key_permissions"     = []
-    #   "secret_permissions"  = ["Get", "List", "Purge", "Recover", "Restore", "Set"]
-    #   "storage_permissions" = []
-    # },
     "webapp1" = {
       "entity_id"           = local.webapp_identity_id["app1"].identity_id
       "key_permissions"     = []
@@ -25,7 +19,7 @@ locals {
   webapp_identity_id           = module.app_service
   connection_string_kv_pattern = "@Microsoft.KeyVault(SecretUri=[link])"
   connection_string_kv         = replace(local.connection_string_kv_pattern, "[link]", azurerm_key_vault_secret.secret.id)
-  # webapp_identity_id = [for k in module.app_service : "${k.identity_id}"]
+
   #-------------------------------------------------------------------------------------------------------------
 
   sql_server_name   = "${module.naming.mssql_server.name}-${random_integer.randint.result}"
@@ -37,7 +31,6 @@ locals {
   #-------------------------------------------------------------------------------------------------------------
 
   storage_account_name = "${module.naming.storage_account.name}${random_integer.randint.result}"
-  # app_service_name     = "${module.naming.app_service.name}${random_integer.randint.result}"
 
   #-------------------------------------------------------------------------------------------------------------
   webapps = {
@@ -53,18 +46,8 @@ locals {
   }
 
   subnet_id_appsvc = [for s in module.network.subnets : s.id if s.name == "subnetappsvc"][0]
-  # subnet_id_appsvc = [for s in azurerm_virtual_network.vnet.subnet : s.id if s.name == "subnetappsvc"][0]
+
   #-------------------------------------------------------------------------------------------------------------
-
-  # sql_servers = {
-  #   primary = {
-  #     name = "${local.sql_server_name}-primary"
-  #   },
-  #   secondary = {
-  #     name = "${local.sql_server_name}-secondary"
-
-  #   }
-  # }
 
   sql_server_instance_id   = module.azsql.sqlsrv_primary_id
   sql_server_instance_name = module.azsql.sqlsrv_primary_name

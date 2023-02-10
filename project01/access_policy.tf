@@ -16,15 +16,4 @@ resource "azurerm_key_vault_access_policy" "policy" {
   secret_permissions  = each.value.secret_permissions
   key_permissions     = each.value.key_permissions
   storage_permissions = each.value.storage_permissions
-
-  # lifecycle {
-  #   ignore_changes = [
-  #     secret_permissions
-  #   ]
-  # }
-
-  # depends_on = [
-  #   module.keyvault
-  # ]
-
 }
